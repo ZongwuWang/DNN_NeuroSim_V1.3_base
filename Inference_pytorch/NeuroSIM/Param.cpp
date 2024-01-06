@@ -88,10 +88,11 @@ Param::Param() {
 	chipActivation = true;      // false: activation (reLu/sigmoid) inside Tile
 								// true: activation outside Tile
 						 		
+	// TODO: we need to add additional activation function to represent the LIF node in SNN
 	reLu = true;                // false: sigmoid
 								// true: reLu
 								
-	novelMapping = true;        // false: conventional mapping
+	novelMapping = false;        // false: conventional mapping
 								// true: novel mapping
 								
 	SARADC = false;              // false: MLSA
@@ -146,7 +147,7 @@ Param::Param() {
 	
 	numColMuxed = 8;                    // How many columns share 1 ADC (for eNVM and FeFET) or parallel SRAM
 	levelOutput = 32;                   // # of levels of the multilevelSenseAmp output, should be in 2^N forms; e.g. 32 levels --> 5-bit ADC
-	cellBit = 2;                        // precision of memory device 
+	cellBit = 1;                        // precision of memory device 
 	
 	/*** parameters for SRAM ***/
 	// due the scaling, suggested SRAM cell size above 22nm: 160F^2

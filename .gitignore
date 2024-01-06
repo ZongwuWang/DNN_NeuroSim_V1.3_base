@@ -1,0 +1,11 @@
+Inference_pytorch/layer_record_*
+Inference_pytorch/log/
+Inference_pytorch/models/
+Inference_pytorch/modules/
+Inference_pytorch/utee/
+Inference_pytorch/NeuroSIM/.depend
+Inference_pytorch/NeuroSIM/.clangd/
+Inference_pytorch/NeuroSIM/compile_commands.json
+Inference_pytorch/NeuroSIM/run.log
+Inference_pytorch/NeuroSIM/main
+Inference_pytorch/NeuroSIM/DFFTest

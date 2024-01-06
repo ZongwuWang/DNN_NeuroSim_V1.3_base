@@ -38,20 +38,31 @@
 
 .SECONDEXPANSION:
 
-MAINS := main.cpp
+EXCLUDE = main.cpp DFFTest.cpp AdderTest.cpp
+
+EXECTUBLE ?= main
+$(info $(EXECTUBLE))
+
+# if EXECUTABLE is not "main", then change the following line to
+MAINS := $(EXECTUBLE).cpp
 ALLSRC := $(wildcard *.cpp)
-SRC := $(filter-out $(MAINS),$(ALLSRC))
+# filter out all files in EXCLUDE from ALLSRC
+SRC	:= $(filter-out $(EXCLUDE),$(ALLSRC))
+# print out all files in SRC
+$(info $(SRC))
 ALLOBJ := $(ALLSRC:.cpp=.o)
 OBJ := $(SRC:.cpp=.o)
 
 CXX := g++
-CXXFLAGS := -fopenmp -O3 -std=c++0x -w	# -w disables warnings
+# CXXFLAGS := -fopenmp -O3 -std=c++0x -w	# -w disables warnings
+CXXFLAGS := -fopenmp -g -std=c++0x -w	# -w disables warnings
 
 .PHONY: all clean
 all: $(MAINS:.cpp=)
 
 $(MAINS:.cpp=): $(OBJ) $$@.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
+	$(RM) $(ALLOBJ)
 %.o: %.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 

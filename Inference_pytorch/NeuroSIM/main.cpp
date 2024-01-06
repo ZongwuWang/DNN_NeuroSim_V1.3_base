@@ -186,6 +186,7 @@ int main(int argc, char * argv[]) {
 
 	ChipInitialize(inputParameter, tech, cell, netStructure, markNM, numTileEachLayer,
 					numPENM, desiredNumTileNM, desiredPESizeNM, desiredNumTileCM, desiredTileSizeCM, desiredPESizeCM, numTileRow, numTileCol);
+	cout << "Chip initialized" << endl;
 			
 	double chipHeight, chipWidth, chipArea, chipAreaIC, chipAreaADC, chipAreaAccum, chipAreaOther, chipAreaArray;
 	double CMTileheight = 0;
@@ -202,6 +203,7 @@ int main(int argc, char * argv[]) {
 	chipAreaAccum = chipAreaResults[3];
 	chipAreaOther = chipAreaResults[4];
 	chipAreaArray = chipAreaResults[5];
+	cout << "Chip area calculated" << endl;
 
 	double clkPeriod = 0;
 	double layerclkPeriod = 0;

@@ -169,7 +169,7 @@ void Bus::CalculatePower(double numBitAccess, double numRead) {
 		readDynamicEnergy = 0;
 		
 		unitLengthLeakage = CalculateGateLeakage(INV, 1, widthInvN, widthInvP, inputParameter.temperature, tech) * tech.vdd / minDist;
-		leakage = unitLengthLeakage * wireLength * (numRow + numCol);
+		leakage += unitLengthLeakage * wireLength * (numRow + numCol);
 
 		unitLengthEnergyRep = (capInvInput+capInvOutput+unitLengthWireCap*minDist)*tech.vdd*tech.vdd/minDist * 0.25;
 		unitLengthEnergyWire = (unitLengthWireCap*minDist)*tech.vdd*tech.vdd/minDist * 0.25;

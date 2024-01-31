@@ -453,6 +453,7 @@ void TileCalculatePerformance(const vector<vector<double> > &newMemory, const ve
 			// no duplication --> tell PE to further partition the weight and grab data (redefine a few data-grab start-point)
 			for (int i=0; i<numPE; i++) {
 				for (int j=0; j<numPE; j++) {
+					// printf("\t\tEvaluate PE (%d,%d)\n", i, j);
 					// each cycle assign to different PE
 					if ( (i*peSize < weightMatrixRow) && (j*peSize < weightMatrixCol) ) {
 						// assign weight and input to specific tile
@@ -468,22 +469,24 @@ void TileCalculatePerformance(const vector<vector<double> > &newMemory, const ve
 												numColMatrix, numInVector, cell, false, &PEreadLatency, &PEreadDynamicEnergy, &PEleakage,
 												&PEbufferLatency, &PEbufferDynamicEnergy, &PEicLatency, &PEicDynamicEnergy,
 												&peLatencyADC, &peLatencyAccum, &peLatencyOther, &peEnergyADC, &peEnergyAccum, &peEnergyOther, CalculateclkFreq, clkPeriod);
+						
+						// FIXED: 这边没有激活的部分不应该计算
+						*readLatency = max(PEreadLatency, (*readLatency));
+						*readDynamicEnergy += PEreadDynamicEnergy;
+						
+						*bufferLatency = max(PEbufferLatency, (*bufferLatency));
+						*bufferDynamicEnergy += PEbufferDynamicEnergy;
+						*icLatency = max(PEicLatency,(*icLatency));
+						*icDynamicEnergy += PEicDynamicEnergy;
+						
+						*coreLatencyADC = MAX(peLatencyADC, (*coreLatencyADC));
+						*coreLatencyAccum = MAX(peLatencyAccum, (*coreLatencyAccum));
+						*coreLatencyOther = MAX(peLatencyOther, (*coreLatencyOther));
+						
+						*coreEnergyADC += peEnergyADC;
+						*coreEnergyAccum += peEnergyAccum;
+						*coreEnergyOther += peEnergyOther;
 					}
-					*readLatency = max(PEreadLatency, (*readLatency));
-					*readDynamicEnergy += PEreadDynamicEnergy;
-					
-					*bufferLatency = max(PEbufferLatency, (*bufferLatency));
-					*bufferDynamicEnergy += PEbufferDynamicEnergy;
-					*icLatency = max(PEicLatency,(*icLatency));
-					*icDynamicEnergy += PEicDynamicEnergy;
-					
-					*coreLatencyADC = MAX(peLatencyADC, (*coreLatencyADC));
-					*coreLatencyAccum = MAX(peLatencyAccum, (*coreLatencyAccum));
-					*coreLatencyOther = MAX(peLatencyOther, (*coreLatencyOther));
-					
-					*coreEnergyADC += peEnergyADC;
-					*coreEnergyAccum += peEnergyAccum;
-					*coreEnergyOther += peEnergyOther;
 				}
 			}
 			accumulationCM->CalculateLatency((int)(numInVector/param->numBitInput)*ceil((double)param->numColMuxed/(double)param->numColPerSynapse), numPE, 0);

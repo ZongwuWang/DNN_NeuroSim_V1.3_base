@@ -72,17 +72,17 @@ Param::Param() {
 	deviceroadmap = 2;      	// 1: inputParameter.deviceRoadmap = HP
 								// 2: inputParameter.deviceRoadmap = LSTP
 								
-	globalBufferType = false;    // false: register file
+	globalBufferType = true;    // false: register file
 								// true: SRAM
 	globalBufferCoreSizeRow = 128;
 	globalBufferCoreSizeCol = 128;
 	
-	tileBufferType = false;      // false: register file
+	tileBufferType = true;      // false: register file
 								// true: SRAM
 	tileBufferCoreSizeRow = 32;
 	tileBufferCoreSizeCol = 32;
 	
-	peBufferType = false;        // false: register file
+	peBufferType = true;        // false: register file
 								// true: SRAM
 	
 	chipActivation = true;      // false: activation (reLu/sigmoid) inside Tile

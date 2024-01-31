@@ -392,6 +392,7 @@ double HTree::GetUnitLengthRes(double wireLength) {
 		wireWidth = 1*param->wireWidth;
 	}
 	
+	/*
 	if (wireWidth >= 175) {
 		AR = 1.6; 
 		Rho = 2.20e-8;
@@ -417,6 +418,33 @@ double HTree::GetUnitLengthRes(double wireLength) {
 		AR = 2.0;
 		Rho = 6.35e-8;
 	} 
+	*/
+	if (wireWidth >= 175) {
+		AR = 1.6; 
+		Rho = 2.20e-8;
+	} else if (110 <= wireWidth && wireWidth < 175) {
+		AR = 1.6; 
+		Rho = 2.52e-8;
+	} else if (105 <= wireWidth && wireWidth < 110) {
+		AR = 1.7; 
+		Rho = 2.68e-8;
+	} else if (80 <= wireWidth && wireWidth < 105) {
+		AR = 1.7; 
+		Rho = 3.31e-8;
+	} else if (56 <= wireWidth && wireWidth < 80) {
+		AR = 1.8; 
+		Rho = 3.70e-8;
+	} else if (40 <= wireWidth && wireWidth < 56) {
+		AR = 1.9; 
+		Rho = 4.03e-8;
+	} else if (25 <= wireWidth && wireWidth < 40) {
+		AR = 2.0; 
+		Rho = 5.08e-8;
+	} else {
+		AR = 2.0;
+		Rho = 6.35e-8;
+	} 
+
 	Rho *= (1+0.00451*(param->temp-300));
 	if (wireWidth == -1) {
 		unitLengthWireResistance = 1.0;	// Use a small number to prevent numerical error for NeuroSim

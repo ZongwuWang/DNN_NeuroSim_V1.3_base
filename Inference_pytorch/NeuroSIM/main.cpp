@@ -204,6 +204,12 @@ int main(int argc, char * argv[]) {
 	chipAreaOther = chipAreaResults[4];
 	chipAreaArray = chipAreaResults[5];
 	cout << "Chip area calculated" << endl;
+	printf("Chip Area: %f \n", chipArea);
+	printf("Chip Area IC: %f \n", chipAreaIC);
+	printf("Chip Area ADC: %f \n", chipAreaADC);
+	printf("Chip Area Accum: %f \n", chipAreaAccum);
+	printf("Chip Area Other: %f \n", chipAreaOther);
+	printf("Chip Area Array: %f \n", chipAreaArray);
 
 	double clkPeriod = 0;
 	double layerclkPeriod = 0;
@@ -238,10 +244,18 @@ int main(int argc, char * argv[]) {
 	double coreEnergyADC = 0;
 	double coreEnergyAccum = 0;
 	double coreEnergyOther = 0;
+
+	// 强制speedUpEachLayer为1
+	for (int i=0; i<netStructure.size(); i++) {
+		speedUpEachLayer[0][i] = 1;
+		speedUpEachLayer[1][i] = 1;
+	}
 	
 	if (param->synchronous){
 		// calculate clkFreq
-		for (int i=0; i<netStructure.size(); i++) {		
+		// for (int i=0; i<netStructure.size(); i++) {		
+		for (int i=0; i<1; i++) {		
+			printf("Evaluating Layer %d \n", i+1);
 			ChipCalculatePerformance(inputParameter, tech, cell, i, argv[2*i+4], argv[2*i+4], argv[2*i+5], netStructure[i][6],
 						netStructure, markNM, numTileEachLayer, utilizationEachLayer, speedUpEachLayer, tileLocaEachLayer,
 						numPENM, desiredPESizeNM, desiredTileSizeCM, desiredPESizeCM, CMTileheight, CMTilewidth, NMTileheight, NMTilewidth,
@@ -255,6 +269,9 @@ int main(int argc, char * argv[]) {
 			param->clkFreq = 1/clkPeriod;
 		}
 	}
+
+	cout << "clkPeriod: " << clkPeriod << endl;
+
 
 	cout << "-------------------------------------- Hardware Performance --------------------------------------" <<  endl;	
 	if (! param->pipeline) {

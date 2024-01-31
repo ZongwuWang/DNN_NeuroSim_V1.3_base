@@ -105,7 +105,7 @@ void MultilevelSenseAmp::CalculateArea(double heightArray, double widthArray, Ar
 				currentSenseAmp.CalculateUnitArea();
 				currentSenseAmp.CalculateArea(widthArray);
 				area = currentSenseAmp.area;
-				area += ((hNmos*wNmos)*9 + (hPmos*wPmos)*9)*(levelOutput-1)*numCol;
+				area += (hNmos*wNmos)*9 + (hPmos*wPmos)*9*(levelOutput-1)*numCol;
 				// area = ((hNmos*wNmos)*48 + (hPmos*wPmos)*24)*(levelOutput-1)*numCol;
 			} else {
 				area = ((hNmos*wNmos)*52 + (hPmos*wPmos)*60)*(levelOutput-1)*numCol;

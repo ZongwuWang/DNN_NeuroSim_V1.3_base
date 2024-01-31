@@ -53,7 +53,8 @@ void ReadCircuit::Initialize(ReadCircuitMode _mode, int _numReadCol, int _maxNum
 		cout << "[ReadCircuit] Warning: Already initialized!" << endl;
 	
 	mode = _mode;
-	maxNumIntPerCycle = (int)pow(2, maxNumIntBit);
+	// Fixed:
+	maxNumIntPerCycle = (int)pow(2, _maxNumIntBit);
 	voltageIntThreshold = cell.readVoltage * RATIO_READ_THRESHOLD_VS_VOLTAGE;
 	numReadCol = _numReadCol;
 	maxNumIntBit = _maxNumIntBit;
@@ -152,8 +153,10 @@ void ReadCircuit::CalculateUnitArea() {
 		// Read circuit body
 		capTgGateN = CalculateGateCap(widthTgN, tech);
 		capTgGateP = CalculateGateCap(widthTgP, tech);
+		// FIXME: hTg is not assigned
 		CalculateGateCapacitance(INV, 1, widthTgN, widthTgP, hTg, tech, NULL, &capTgDrain);
 		CalculateGateCapacitance(INV, 1, widthInvN, widthInvP, hBufInv, tech, &capInvInput, &capInvOutput);
+		// FIXME: h4 is not assigned
 		CalculateGateCapacitance(INV, 1, widthPmos4, 0, h4, tech, &capPmosGate, &capPmosDrain);
 	}
 }

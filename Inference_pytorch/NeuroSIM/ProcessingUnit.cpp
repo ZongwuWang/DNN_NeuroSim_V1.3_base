@@ -435,9 +435,13 @@ double ProcessingUnitCalculatePerformance(SubArray *subArray, const vector<vecto
 		}
 	} else {
 		// weight matrix is further partitioned inside PE (among subArray) --> no duplicated
+		int validRowSubArray= 0, validColSubArray = 0;
 		for (int i=0; i<numSubArrayRow/*ceil((double) weightMatrixRow/(double) param->numRowSubArray)*/; i++) {
 			for (int j=0; j<numSubArrayCol/*ceil((double) weightMatrixCol/(double) param->numColSubArray)*/; j++) {
+				// printf("\t\t\tEvaluate subArray[%d][%d],numInVector=%d\n", i, j, numInVector);
 				if ((i*param->numRowSubArray < weightMatrixRow) && (j*param->numColSubArray < weightMatrixCol) && (i*param->numRowSubArray < weightMatrixRow) ) {
+					validRowSubArray = i + 1;
+					validColSubArray = j + 1;
 					int numRowMatrix = min(param->numRowSubArray, weightMatrixRow-i*param->numRowSubArray);
 					int numColMatrix = min(param->numColSubArray, weightMatrixCol-j*param->numColSubArray);
 					// assign weight and input to specific subArray
@@ -494,6 +498,7 @@ double ProcessingUnitCalculatePerformance(SubArray *subArray, const vector<vecto
 				}
 			}
 		}
+		// printf("\t\t\tEvaluate subArray[%d x %d],numInVector=%d\n", validRowSubArray, validColSubArray, numInVector);
 		if (NMpe) {
 			adderTreeNM->CalculateLatency((int)(numInVector/param->numBitInput)*ceil(param->numColMuxed/param->numColPerSynapse), ceil((double) weightMatrixRow/(double) param->numRowSubArray), 0);
 			adderTreeNM->CalculatePower((int)(numInVector/param->numBitInput)*ceil(param->numColMuxed/param->numColPerSynapse), ceil((double) weightMatrixRow/(double) param->numRowSubArray));

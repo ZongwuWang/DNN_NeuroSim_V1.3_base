@@ -38,13 +38,13 @@
 
 .SECONDEXPANSION:
 
-EXCLUDE = main.cpp DFFTest.cpp AdderTest.cpp
+EXCLUDE = main.cpp DFFTest.cpp AdderTest.cpp AdderTreeTest.cpp
 
-EXECTUBLE ?= main
-$(info $(EXECTUBLE))
+EXECUTABLE ?= main
+$(info $(EXECUTABLE))
 
 # if EXECUTABLE is not "main", then change the following line to
-MAINS := $(EXECTUBLE).cpp
+MAINS := $(EXECUTABLE).cpp
 ALLSRC := $(wildcard *.cpp)
 # filter out all files in EXCLUDE from ALLSRC
 SRC	:= $(filter-out $(EXCLUDE),$(ALLSRC))

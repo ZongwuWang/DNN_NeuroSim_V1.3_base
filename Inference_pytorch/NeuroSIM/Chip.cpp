@@ -626,6 +626,8 @@ double ChipCalculatePerformance(InputParameter& inputParameter, Technology& tech
 	if (markNM[l] == 0) {   // conventional mapping
 		for (int i=0; i<ceil((double) netStructure[l][2]*(double) netStructure[l][3]*(double) netStructure[l][4]*(double) numRowPerSynapse/desiredTileSizeCM); i++) {       // # of tiles in row
 			for (int j=0; j<ceil((double) netStructure[l][5]*(double) numColPerSynapse/(double) desiredTileSizeCM); j++) {   // # of tiles in Column
+
+				// printf("\tCalculating layer %d, tile[%d, %d]\n", l, i, j);
 				
 				double tileReadLatency = 0;
 				double tileReadDynamicEnergy = 0;

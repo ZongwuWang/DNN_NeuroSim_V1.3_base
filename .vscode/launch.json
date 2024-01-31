@@ -81,6 +81,26 @@
 					"ignoreFailures": true
 				}
 			]
+		},
+		{
+			"name": "AdderTreeTest",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/Inference_pytorch/NeuroSIM/AdderTreeTest",
+			"args": [ ],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}/Inference_pytorch",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"miDebuggerPath": "/usr/bin/gdb",
+			"setupCommands": [
+				{
+					"description": "为 gdb 启用整齐打印",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			]
 		}
 	]
 }
